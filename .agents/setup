@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Prepares a fresh Amp orb. Must stay idempotent: Amp reruns it on stale snapshots.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+
+step() { printf '\n==> %s\n' "$*"; }
+
+step "Allow memory overcommit (oxlint JS plugins in vp check reserve a large block)"
+time .agents/resume
+
+step "Install dependencies"
+time pnpm install --frozen-lockfile

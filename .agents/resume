@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Runs on every orb activation and wake. Keep it fast.
+set -euo pipefail
+
+# Without this, `vp lint`/`vp check` panics in oxc's fixed-size allocator,
+# because the orb's default heuristic overcommit refuses its reservation.
+if [ "$(cat /proc/sys/vm/overcommit_memory)" != 1 ]; then
+  sudo -n sh -c 'echo 1 > /proc/sys/vm/overcommit_memory'
+fi

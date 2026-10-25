@@ -1,0 +1,9 @@
+services:
+  dev:
+    # One Alchemy stage per thread so concurrent orbs don't share dev state.
+    command: >-
+      pnpm dev --stage "orb_$(printf '%s' "$AMP_THREAD_ID" | tr -cd '[:alnum:]' | tr '[:upper:]' '[:lower:]' | tail -c 12)"
+    # Web dev server port, pinned in alchemy.run.ts.
+    port: 5173
+    portal:
+      title: Cirrus
