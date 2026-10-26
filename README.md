@@ -1,6 +1,6 @@
 # Cirrus
 
-React + StyleX single-page app with an Effect API, running on Cloudflare Workers. Alchemy deploys it, and Vite+ (`vp`) with pnpm handles tooling.
+TanStack Start (React + StyleX) app with an Effect API Worker it calls over RPC, running on Cloudflare Workers. Alchemy deploys it, and Vite+ (`vp`) with pnpm handles tooling.
 
 ```sh
 pnpm install

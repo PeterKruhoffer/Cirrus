@@ -1,4 +1,5 @@
 import stylex from "@stylexjs/unplugin";
+import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, lazyPlugins } from "vite-plus";
 
@@ -6,8 +7,11 @@ export default defineConfig({
   staged: {
     "*": "vp check --fix",
   },
-  fmt: {},
+  fmt: {
+    ignorePatterns: ["src/routeTree.gen.ts"],
+  },
   lint: {
+    ignorePatterns: ["src/routeTree.gen.ts"],
     plugins: ["react", "typescript", "oxc"],
     rules: {
       "react/rules-of-hooks": "error",
@@ -21,6 +25,13 @@ export default defineConfig({
       // Effect.gen bodies often have no yield until a binding is added.
       "require-yield": "off",
     },
+    overrides: [
+      {
+        // TanStack Router handles fast refresh for route modules.
+        files: ["src/routes/**"],
+        rules: { "react/only-export-components": "off" },
+      },
+    ],
     options: {
       typeAware: true,
       typeCheck: true,
@@ -32,5 +43,5 @@ export default defineConfig({
       },
     ],
   },
-  plugins: lazyPlugins(() => [stylex.vite(), react()]),
+  plugins: lazyPlugins(() => [stylex.vite(), tanstackStart(), react()]),
 });

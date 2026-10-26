@@ -4,13 +4,10 @@ import * as Effect from "effect/Effect";
 
 import Api from "./worker/api.ts";
 
+// TanStack Start app. Its SSR bundle is the Worker entry and the client build
+// is served as static assets.
 const Web = Cloudflare.Website.Vite("Web", {
-  main: "worker/web.ts",
   env: { API: Api },
-  assets: {
-    notFoundHandling: "single-page-application",
-    runWorkerFirst: ["/api/*"],
-  },
   dev: { port: 5173 },
 });
 
