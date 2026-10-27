@@ -21,7 +21,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "erasableSyntaxOnly": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    // Effect LSP for the editor. `vp check` already reports Effect
+    // diagnostics through oxlint, so they are off here to avoid duplicates.
+    "plugins": [{ "name": "@effect/language-service", "diagnostics": false }]
   },
   "include": ["worker"]
 }
