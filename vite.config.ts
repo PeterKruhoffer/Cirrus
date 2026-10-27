@@ -1,3 +1,4 @@
+import { recommended } from "@effect/tsgo/oxlint-presets";
 import stylex from "@stylexjs/unplugin";
 import { tanstackStart } from "@tanstack/react-start/plugin/vite";
 import react from "@vitejs/plugin-react";
@@ -11,6 +12,9 @@ export default defineConfig({
     ignorePatterns: ["src/routeTree.gen.ts"],
   },
   lint: {
+    // Effect rules. They run only when `pnpm install` has patched Vite+'s
+    // oxlint with `effect-tsgo` (the `prepare` script).
+    extends: [recommended],
     ignorePatterns: ["src/routeTree.gen.ts"],
     plugins: ["react", "typescript", "oxc"],
     rules: {

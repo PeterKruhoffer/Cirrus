@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "alchemy dev",
-    "prepare": "vp config"
+    "prepare": "vp config && effect-tsgo patch --no-typescript --oxlint"
   },
   "dependencies": {
     "@alchemy.run/cloudflare": "2.0.0-beta.84",
@@ -20,6 +20,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^5.20261024.1",
+    "@effect/tsgo": "0.59.0",
     "@stylexjs/unplugin": "^0.19.1",
     "@types/node": "^24.19.2",
     "@types/react": "^19.3.0",

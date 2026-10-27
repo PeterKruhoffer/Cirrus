@@ -2,7 +2,10 @@ import * as Cloudflare from "@alchemy.run/cloudflare";
 import * as Effect from "effect/Effect";
 import * as Schema from "effect/Schema";
 
-export class InvalidName extends Schema.TaggedError<InvalidName>()("InvalidName", {
+export class InvalidName extends Schema.TaggedError<
+  InvalidName,
+  { readonly brand: unique symbol }
+>()("InvalidName", {
   message: Schema.String,
 }) {}
 
@@ -15,7 +18,7 @@ export default Cloudflare.Worker(
   { main: import.meta.url },
   Effect.succeed({
     hello: (name: string | undefined) =>
-      Schema.decodeUnknownEffect(Schema.UndefinedOr(Name))(name).pipe(
+      Schema.decodeEffect(Schema.UndefinedOr(Name))(name).pipe(
         Effect.map((name) => `Hello, ${name ?? "world"}, from an Effect Worker`),
         Effect.mapError(() => new InvalidName({ message: "Name must be 1 to 40 characters" })),
       ),
